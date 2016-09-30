@@ -1,5 +1,5 @@
 
-public class Test1 {
+public class ClasseA {
 	public void test() {
 		return;
 	}
