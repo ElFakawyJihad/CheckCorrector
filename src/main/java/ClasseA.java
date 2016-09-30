@@ -1,6 +1,6 @@
 
 public class ClasseA {
-	public void test() {
-		return;
+	public void test(){
+		return ;
 	}
 }
