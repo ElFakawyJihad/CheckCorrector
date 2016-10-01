@@ -13,6 +13,6 @@ public class Main {
 		CtMethod<?> method = methodsIterator.next();
 		classe.removeMethod(method);
 		l.getModelBuilder().compile();
-ddd
+
 	}
 }
