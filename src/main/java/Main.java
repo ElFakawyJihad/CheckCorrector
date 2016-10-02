@@ -1,4 +1,4 @@
-import Method.MethodRemoverProcessor;
+import Method.MethodCheckProcessor;
 import spoon.Launcher;
 
 public class Main {
@@ -9,7 +9,7 @@ public class Main {
 		final String outputDirectory = "../output";
 		launcher.addInputResource(inputResource);
 		launcher.setSourceOutputDirectory(outputDirectory);
-		launcher.addProcessor(new MethodRemoverProcessor());
+		launcher.addProcessor(new MethodCheckProcessor());
 		launcher.prettyprint();
 		System.out.println("Before intrumentation...");
 		launcher.run();

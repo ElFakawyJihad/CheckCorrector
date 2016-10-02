@@ -2,7 +2,7 @@ package Method;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtMethod;
 
-public class MethodRemoverProcessor extends AbstractProcessor<CtMethod<?>> {
+public class MethodCheckProcessor extends AbstractProcessor<CtMethod<?>> {
 
 	@Override
 	public boolean isToBeProcessed(CtMethod<?> candidate) {
