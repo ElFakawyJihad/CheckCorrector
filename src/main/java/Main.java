@@ -1,3 +1,4 @@
+import Method.MethodRemoverProcessor;
 import spoon.Launcher;
 
 public class Main {

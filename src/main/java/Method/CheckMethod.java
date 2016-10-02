@@ -1,6 +1,7 @@
 package Method;
 
 import spoon.reflect.code.CtCodeSnippetStatement;
+import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtMethod;
 
 public class CheckMethod {
@@ -17,7 +18,7 @@ public class CheckMethod {
 	}
 
 	public void verifDocMethod() {
-		if (this.method.getDocComment()==null) {
+		if (this.method.getDocComment() == null) {
 			addComment(ConstantesMethod.DOCUMENTATION);
 		}
 	}
@@ -51,7 +52,9 @@ public class CheckMethod {
 		stmt.setValue("//" + comment);
 		method.getBody().insertBegin(stmt);
 	}
-	public void verifier(){
+	//TODO Method Verif (changer ==False en l'objet lui meme)
+
+	public void verifier() {
 		this.verifDocMethod();
 		this.verifLengthMethod();
 		this.verifMajuscule();
