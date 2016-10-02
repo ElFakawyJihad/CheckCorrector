@@ -1,18 +1,18 @@
-import java.util.Iterator;
-
 import spoon.Launcher;
-import spoon.reflect.declaration.CtClass;
-import spoon.reflect.declaration.CtMethod;
 
 public class Main {
 	public static void main(String[] args) {
-		Launcher l = new Launcher();
-		CtClass<?> classe = l.getFactory().Class().get(ClasseA.class);
-		Iterator<CtMethod<?>> methodsIterator = classe.getMethods().iterator();
-		l.run();
-		CtMethod<?> method = methodsIterator.next();
-		classe.removeMethod(method);
-		l.getModelBuilder().compile();
-
+		final Launcher launcher = new Launcher();
+		launcher.createFactory();
+		final String inputResource = "../blob";
+		final String outputDirectory = "../output";
+		launcher.addInputResource(inputResource);
+		launcher.setSourceOutputDirectory(outputDirectory);
+		launcher.addProcessor(new MethodRemoverProcessor());
+		launcher.prettyprint();
+		System.out.println("Before intrumentation...");
+		launcher.run();
+		System.out.println("Instrumentation done! Output directory: " + outputDirectory);
 	}
+
 }
