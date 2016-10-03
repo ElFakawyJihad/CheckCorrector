@@ -22,7 +22,6 @@ public class Main {
 		launcher.prettyprint();
 		System.out.println("Before intrumentation...");
 		launcher.run();
-		System.out.println(map);
 		System.out.println("Instrumentation done! Output directory: " + outputDirectory);
 	}
 
