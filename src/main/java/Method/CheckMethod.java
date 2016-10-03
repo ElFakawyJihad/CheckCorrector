@@ -46,17 +46,22 @@ public class CheckMethod {
 		}
 	}
 
+	public void verif() {
+		System.out.println(this.method.isShadow());
+	}
+
 	public void addComment(String comment) {
 		CtCodeSnippetStatement stmt = method.getFactory().Core().createCodeSnippetStatement();
 		stmt.setValue("//TODO " + comment);
 		method.getBody().insertBegin(stmt);
-	} 
-	//TODO Method Verif (changer ==False en l'objet lui meme)
+	}
+	// TODO Method Verif (changer ==False en l'objet lui meme)
 
 	public void verifier() {
 		this.verifDocMethod();
 		this.verifLengthMethod();
 		this.verifMajuscule();
 		this.verifLigne();
+		// System.out.println(this.method.getSimpleName());
 	}
 }
