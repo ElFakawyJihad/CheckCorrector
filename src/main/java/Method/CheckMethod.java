@@ -1,7 +1,6 @@
 package Method;
 
 import spoon.reflect.code.CtCodeSnippetStatement;
-import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtMethod;
 
 public class CheckMethod {
@@ -49,9 +48,9 @@ public class CheckMethod {
 
 	public void addComment(String comment) {
 		CtCodeSnippetStatement stmt = method.getFactory().Core().createCodeSnippetStatement();
-		stmt.setValue("//" + comment);
+		stmt.setValue("//TODO " + comment);
 		method.getBody().insertBegin(stmt);
-	}
+	} 
 	//TODO Method Verif (changer ==False en l'objet lui meme)
 
 	public void verifier() {

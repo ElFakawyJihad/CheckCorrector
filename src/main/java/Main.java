@@ -1,3 +1,4 @@
+import Field.FieldCheckProcessor;
 import Method.MethodCheckProcessor;
 import spoon.Launcher;
 
@@ -9,6 +10,7 @@ public class Main {
 		final String outputDirectory = "../output";
 		launcher.addInputResource(inputResource);
 		launcher.setSourceOutputDirectory(outputDirectory);
+		launcher.addProcessor(new FieldCheckProcessor());
 		launcher.addProcessor(new MethodCheckProcessor());
 		launcher.prettyprint();
 		System.out.println("Before intrumentation...");
