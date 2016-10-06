@@ -12,6 +12,7 @@ public class PullRequestJGit {
     
     private String localPath = "D:\\IAGL\\OPL\\PullRequestEngineeringTest";
     private String remotePath = "https://user:mdp@github.com//rbadr/PullRequestEngineeringTest";
+	
     private Repository localRepo;
     private Git git;
     
