@@ -9,4 +9,6 @@ public class ConstantesMethod {
 	
 	//---------------------------------------------------
 	public static final String SIGNATURE_MAIN="main(java.lang.String[])";
+	public static final String EXTENSION = ".java";
+	public static final String COMMENTAIRE="\\";
 }

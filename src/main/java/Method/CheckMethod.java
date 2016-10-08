@@ -1,13 +1,18 @@
 package Method;
 
+import java.util.ArrayList;
+
 import spoon.reflect.code.CtCodeSnippetStatement;
+import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 
 public class CheckMethod {
 	private CtMethod<?> method;
+	private ArrayList<String> useFile;
 
-	public CheckMethod(CtMethod<?> method) {
+	public CheckMethod(CtMethod<?> method, ArrayList<String> useFile) {
 		this.method = method;
+		this.useFile = useFile;
 	}
 
 	public void verifLengthMethod() {
@@ -54,6 +59,11 @@ public class CheckMethod {
 		CtCodeSnippetStatement stmt = method.getFactory().Core().createCodeSnippetStatement();
 		stmt.setValue("//TODO " + comment);
 		method.getBody().insertBegin(stmt);
+		CtClass<?> classe = (CtClass<?>) (method.getParent());
+		String name = classe.getSimpleName();
+		if (!this.useFile.contains(name + ConstantesMethod.EXTENSION)) {
+			this.useFile.add(name + ConstantesMethod.EXTENSION);
+		}
 	}
 	// TODO Method Verif (changer ==False en l'objet lui meme)
 
