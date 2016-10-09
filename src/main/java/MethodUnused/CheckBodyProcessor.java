@@ -21,7 +21,6 @@ public class CheckBodyProcessor extends AbstractProcessor<CtBlock<?>> {
 
 	@Override
 	public void process(CtBlock<?> element) {
-		// TODO à completer
 		List<CtStatement> statements = element.getStatements();
 		for (int i = 0; i < statements.size(); i++) {
 			String representation = element.getStatement(i).getShortRepresentation();

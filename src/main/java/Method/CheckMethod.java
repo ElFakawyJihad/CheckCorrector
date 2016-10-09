@@ -72,6 +72,5 @@ public class CheckMethod {
 		this.verifLengthMethod();
 		this.verifMajuscule();
 		this.verifLigne();
-		// System.out.println(this.method.getSimpleName());
 	}
 }

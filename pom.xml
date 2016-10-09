@@ -17,5 +17,10 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>4.5.0.201609210915-r</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
 </project>
