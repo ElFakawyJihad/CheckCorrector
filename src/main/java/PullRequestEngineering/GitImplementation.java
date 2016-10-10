@@ -7,14 +7,24 @@ import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
-public class PullRequestJGit {
+public class GitImplementation {
     
-    private String localPath = "D:\\IAGL\\OPL\\PullRequestEngineeringTest";
-    private String remotePath = "https://user:mdp@github.com//rbadr/PullRequestEngineeringTest";
-	
+    private String localPath,remotePath,user,password;
+    
     private Repository localRepo;
     private Git git;
+    
+    public GitImplementation(String localPath,String remotePath, String user, String password){
+        this.localPath=localPath;
+        this.remotePath=remotePath;
+        this.user=user;
+        this.password=password;
+    }
+    
+    CredentialsProvider cp = new UsernamePasswordCredentialsProvider("user", "password");
     
     public void gitInit() throws IOException {
         localRepo = new FileRepository(localPath + "/.git");
@@ -34,7 +44,7 @@ public class PullRequestJGit {
     public void addFile(String ValidFileName) throws IOException, GitAPIException {
         File myfile = new File(localPath + "/" +ValidFileName);
         myfile.createNewFile();
-        git.add().addFilepattern("myfile").call();
+        git.add().addFilepattern(ValidFileName).call();
     }
     
     public void commitChanges(String commitMessage) throws IOException, GitAPIException,
