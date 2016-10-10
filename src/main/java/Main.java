@@ -19,51 +19,52 @@ import spoon.Launcher;
 import spoon.reflect.code.CtStatement;
 
 public class Main {
-    
-        private static String commitMessage = "commitMessage";
-        private static String branchToMerge="branchTest";
-    
+
+	private static String commitMessage = "commitMessage";
+	private static String branchToMerge = "branchTest";
+
 	public static void main(String[] args) throws IOException, AddressException, MessagingException, GitAPIException {
 		final Launcher launcher = new Launcher();
 		launcher.createFactory();
-		
-                final String inputResource = UserConfiguration.localPath;
+
+		final String inputResource = UserConfiguration.localPath;
 		final String outputDirectory = UserConfiguration.localPath;
-		
-                launcher.addInputResource(inputResource);
+
+		launcher.addInputResource(inputResource);
 		launcher.setSourceOutputDirectory(outputDirectory);
 		launcher.getFactory().getEnvironment().setAutoImports(true);
 		launcher.getFactory().getEnvironment().setCommentEnabled(true);
 		launcher.getFactory().getEnvironment().useTabulations(true);
-                
+
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		HashMap<List<CtStatement>, ArrayList<String>> duplicate = new HashMap<List<CtStatement>, ArrayList<String>>();
 		ArrayList<String> useFile = new ArrayList<String>();
-                
+
 		launcher.addProcessor(new MethodCheckProcessor(map, useFile, duplicate));
 		launcher.addProcessor(new FieldCheckProcessor());
 		launcher.addProcessor(new CheckBodyProcessor(map));
 		launcher.addProcessor(new MethodUnusedProcessor(map, useFile, duplicate));
 		launcher.prettyprint();
-                
+
 		System.out.println("Before intrumentation...");
 		launcher.run();
-                
-		new CheckClassOK(useFile, inputResource).listFileUnused();
-                String ValidFile[] = {"src/main/java/Method/checkMethod.java","src/main/java/Method/checkMethod2.java"};
-                
-                for(String ValidFileName: ValidFile)
-                {
-                    GitImplementation gitCmd = new GitImplementation(UserConfiguration.localPath,UserConfiguration.remotePath,UserConfiguration.user,UserConfiguration.password);
-                    gitCmd.addFile(ValidFileName);
-                    gitCmd.commitChanges(commitMessage);
-                    gitCmd.pushCommit();
-                
-                    PullRequestCreation newPullRequest = new PullRequestCreation(UserConfiguration.user, UserConfiguration.password,UserConfiguration.repoOwner,UserConfiguration.repoName, commitMessage);
-                
-                    newPullRequest.CreatePullRequest(branchToMerge,commitMessage, UserConfiguration.UncompletePullRequest);
-                }   
-                
-                System.out.println("Instrumentation done! Output directory: " + outputDirectory);
+
+		new CheckClassOK(useFile, inputResource).listFileOK();
+		String ValidFile[] = { "src/main/java/Method/checkMethod.java", "src/main/java/Method/checkMethod2.java" };
+
+		for (String ValidFileName : ValidFile) {
+			GitImplementation gitCmd = new GitImplementation(UserConfiguration.localPath, UserConfiguration.remotePath,
+					UserConfiguration.user, UserConfiguration.password);
+			gitCmd.addFile(ValidFileName);
+			gitCmd.commitChanges(commitMessage);
+			gitCmd.pushCommit();
+
+			PullRequestCreation newPullRequest = new PullRequestCreation(UserConfiguration.user,
+					UserConfiguration.password, UserConfiguration.repoOwner, UserConfiguration.repoName, commitMessage);
+
+			newPullRequest.CreatePullRequest(branchToMerge, commitMessage, UserConfiguration.UncompletePullRequest);
+		}
+
+		System.out.println("Instrumentation done! Output directory: " + outputDirectory);
 	}
 }
