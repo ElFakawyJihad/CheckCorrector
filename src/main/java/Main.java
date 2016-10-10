@@ -10,6 +10,10 @@ import Field.FieldCheckProcessor;
 import Method.MethodCheckProcessor;
 import MethodUnused.CheckBodyProcessor;
 import MethodUnused.MethodUnusedProcessor;
+import org.eclipse.egit.github.core.PullRequest;
+import org.eclipse.egit.github.core.PullRequestMarker;
+import org.eclipse.egit.github.core.RepositoryId;
+import org.eclipse.egit.github.core.service.PullRequestService;
 import spoon.Launcher;
 import spoon.reflect.code.CtStatement;
 
@@ -33,6 +37,28 @@ public class Main {
 		launcher.run();
 		new CheckClassOK(useFile, inputResource).listFileUnused();
 		System.out.println("Instrumentation done! Output directory: " + outputDirectory);
-	}
+                
+                
+                
+                
+                //Creer la PR. 
+                PullRequestService pullRequestService = new PullRequestService();
+                pullRequestService.getClient().setCredentials("user", "password");
+                
+                RepositoryId repository = new RepositoryId("rbadr", "PullRequestEngineeringTest");
+                PullRequest pullRequest = new PullRequest();
+                
+                PullRequestMarker branchToMerge= new PullRequestMarker();
+                PullRequestMarker master= new PullRequestMarker();
+                
+                branchToMerge.setLabel("branchTest");
+                master.setLabel("master");
+                 
+                pullRequest.setTitle("mettre ici nom du commit");
+                pullRequest.setBody("Uncomplete Pull Request : waiting for author to fix code violations in the invalid files before pushing");
+                pullRequest.setHead(branchToMerge);
+                pullRequest.setBase(master);
 
+                pullRequestService.createPullRequest(repository, pullRequest);
+	}
 }

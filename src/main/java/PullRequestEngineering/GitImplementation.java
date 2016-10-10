@@ -8,7 +8,7 @@ import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
 
-public class PullRequestJGit {
+public class GitImplementation {
     
     private String localPath = "D:\\IAGL\\OPL\\PullRequestEngineeringTest";
     private String remotePath = "https://user:mdp@github.com//rbadr/PullRequestEngineeringTest";
