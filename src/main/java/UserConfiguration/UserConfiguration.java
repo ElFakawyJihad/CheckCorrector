@@ -7,6 +7,7 @@ public class UserConfiguration {
     public static final String user = "user";
     public static final String password = "password";
     public static final String UncompletePullRequest = "Uncomplete Pull Request : waiting for author to fix code violations in the invalid files before pushing";
+    public static final String CompletePullRequest = "Complete Pull Request : The author fixed code violations in the invalid files";
     public static final String repoOwner = "rbadr";
     public static final String repoName ="PullRequestEngineeringTest";
 }
