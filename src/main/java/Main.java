@@ -55,7 +55,7 @@ public class Main {
 		launcher.run();
 
 		new CheckClassOK(useFile, inputResource).listFileOK();
-		String ValidFile[] = { "src/main/java/Method/checkMethod.java", "src/main/java/Method/checkMethod2.java" };
+		String ValidFile[] = { "src\\main\\java\\ResultMainTest\\Person.java"};
 
 		for (String ValidFileName : ValidFile) {
 			GitImplementation gitCmd = new GitImplementation(UserConfiguration.localPath, UserConfiguration.remotePath,
@@ -71,5 +71,6 @@ public class Main {
 		}
 
 		System.out.println("Instrumentation done! Output directory: " + outputDirectory);
+                System.out.println("Pull Request Created");
 	}
 }

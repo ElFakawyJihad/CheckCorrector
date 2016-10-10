@@ -15,7 +15,7 @@ public class GitImplementation {
     private String localPath,remotePath,user,password;
     
     private Repository localRepo;
-    private Git git;
+    private Git git = new Git(localRepo);
     
     public GitImplementation(String localPath,String remotePath, String user, String password){
         this.localPath=localPath;
@@ -37,7 +37,7 @@ public class GitImplementation {
     }
     
     public void cloneRepo() throws IOException, GitAPIException {
-        Git.cloneRepository().setURI(remotePath)
+        Git.cloneRepository().setCredentialsProvider(cp).setURI(remotePath)
                 .setDirectory(new File(localPath)).call();
     }
     
