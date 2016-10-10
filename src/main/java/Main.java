@@ -14,7 +14,11 @@ import MethodUnused.MethodUnusedProcessor;
 import PullRequestEngineering.GitImplementation;
 import PullRequestEngineering.PullRequestCreation;
 import UserConfiguration.UserConfiguration;
+import While.WhileProcessor;
+
 import org.eclipse.jgit.api.errors.GitAPIException;
+
+import Catch.CatchProcessor;
 import spoon.Launcher;
 import spoon.reflect.code.CtStatement;
 
@@ -39,11 +43,12 @@ public class Main {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		HashMap<List<CtStatement>, ArrayList<String>> duplicate = new HashMap<List<CtStatement>, ArrayList<String>>();
 		ArrayList<String> useFile = new ArrayList<String>();
-
 		launcher.addProcessor(new MethodCheckProcessor(map, useFile, duplicate));
 		launcher.addProcessor(new FieldCheckProcessor());
 		launcher.addProcessor(new CheckBodyProcessor(map));
 		launcher.addProcessor(new MethodUnusedProcessor(map, useFile, duplicate));
+		launcher.addProcessor(new CatchProcessor());
+		launcher.addProcessor(new WhileProcessor());
 		launcher.prettyprint();
 
 		System.out.println("Before intrumentation...");

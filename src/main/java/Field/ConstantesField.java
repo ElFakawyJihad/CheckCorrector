@@ -5,3 +5,4 @@ public class ConstantesField {
 	public static final String STATIC = "Mettre le caractere _ avant pour un static ,donc changer ";
 	public static final String NOSTATICNOFINAL="Mettre le premier caractére en minuscule,donc changer ";
 }
+

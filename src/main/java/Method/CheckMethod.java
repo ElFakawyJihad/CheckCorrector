@@ -51,6 +51,18 @@ public class CheckMethod {
 		}
 	}
 
+	public void verifParametres() {
+		if (method.getParameters().size() > 7) {
+			addComment(ConstantesMethod.TROPDEPARAMETRES);
+		}
+	}
+	public void verifMethodVide(){
+		if (method.getBody().getStatements().size()==0){
+			CtClass<?> classe=(CtClass<?>) this.method.getParent();
+			classe.removeMethod(method);
+		}
+	}
+
 	public void verif() {
 		System.out.println(this.method.isShadow());
 	}
@@ -68,9 +80,11 @@ public class CheckMethod {
 	// TODO Method Verif (changer ==False en l'objet lui meme)
 
 	public void verifier() {
+		this.verifMethodVide();
 		this.verifDocMethod();
 		this.verifLengthMethod();
 		this.verifMajuscule();
 		this.verifLigne();
+		this.verifParametres();
 	}
 }

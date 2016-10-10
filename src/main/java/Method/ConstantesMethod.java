@@ -11,4 +11,5 @@ public class ConstantesMethod {
 	public static final String SIGNATURE_MAIN="main(java.lang.String[])";
 	public static final String EXTENSION = ".java";
 	public static final String COMMENTAIRE="\\";
+	public static final String TROPDEPARAMETRES = "Trop de paramètres dans la fonction (nombre de paramètres doit etre inférieur à 7)";
 }
