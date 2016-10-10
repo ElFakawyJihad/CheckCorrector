@@ -8,7 +8,6 @@ import javax.mail.internet.AddressException;
 
 import CheckClassOK.CheckClassOK;
 import Field.FieldCheckProcessor;
-import MailReport.Mail;
 import Method.MethodCheckProcessor;
 import MethodUnused.CheckBodyProcessor;
 import MethodUnused.MethodUnusedProcessor;
@@ -23,7 +22,7 @@ public class Main {
 		final String outputDirectory = "../output";
 		launcher.addInputResource(inputResource);
 		launcher.setSourceOutputDirectory(outputDirectory);
-		launcher.getFactory().getEnvironment().setAutoImports( true );
+		launcher.getFactory().getEnvironment().setAutoImports(true);
 		launcher.getFactory().getEnvironment().setCommentEnabled(true);
 		launcher.getFactory().getEnvironment().useTabulations(true);
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
