@@ -19,6 +19,7 @@ import While.WhileProcessor;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import Catch.CatchProcessor;
+import java.io.File;
 import spoon.Launcher;
 import spoon.reflect.code.CtStatement;
 
@@ -51,26 +52,50 @@ public class Main {
 		launcher.addProcessor(new WhileProcessor());
 		launcher.prettyprint();
 
-		System.out.println("Before intrumentation...");
+		System.out.println("Check Corrector running...");
 		launcher.run();
 
-		new CheckClassOK(useFile, inputResource).listFileOK();
-		String ValidFile[] = { "src\\main\\java\\ResultMainTest\\Person.java"};
+		File[] ValidFile=new CheckClassOK(useFile, inputResource).listFileOK();
+                File[] InvalidFile=new CheckClassOK(useFile, inputResource).listFileKO();
 
-		for (String ValidFileName : ValidFile) {
-			GitImplementation gitCmd = new GitImplementation(UserConfiguration.localPath, UserConfiguration.remotePath,
-					UserConfiguration.user, UserConfiguration.password);
-			gitCmd.addFile(ValidFileName);
+
+                if(ValidFile.length >0 && InvalidFile.length== 0){
+                    for (File ValidFileName : ValidFile) {
+                        GitImplementation gitCmd = new GitImplementation(UserConfiguration.localPath, UserConfiguration.remotePath, UserConfiguration.user, UserConfiguration.password);
+                        gitCmd.addFile(ValidFileName.getName());
 			gitCmd.commitChanges(commitMessage);
 			gitCmd.pushCommit();
 
-			PullRequestCreation newPullRequest = new PullRequestCreation(UserConfiguration.user,
-					UserConfiguration.password, UserConfiguration.repoOwner, UserConfiguration.repoName, commitMessage);
+                        PullRequestCreation newPullRequest = new PullRequestCreation(UserConfiguration.user, UserConfiguration.password, UserConfiguration.repoOwner, UserConfiguration.repoName, commitMessage);
+                        newPullRequest.CreatePullRequest(branchToMerge, commitMessage, UserConfiguration.CompletePullRequest);
+                        System.out.println("Code Analysis done. No Invalid Files discovered !");
+                        System.out.println("Pull Request Created and Complete.");
+                    }
+                }
+                
+                else if(ValidFile.length >0 && InvalidFile.length >0){
+                    for (File ValidFileName : ValidFile) {
+                        GitImplementation gitCmd = new GitImplementation(UserConfiguration.localPath, UserConfiguration.remotePath, UserConfiguration.user, UserConfiguration.password);
+                        gitCmd.addFile(ValidFileName.getPath());
+			gitCmd.commitChanges(commitMessage);
+			gitCmd.pushCommit();
 
-			newPullRequest.CreatePullRequest(branchToMerge, commitMessage, UserConfiguration.UncompletePullRequest);
-		}
-
-		System.out.println("Instrumentation done! Output directory: " + outputDirectory);
-                System.out.println("Pull Request Created");
-	}
+                        PullRequestCreation newPullRequest = new PullRequestCreation(UserConfiguration.user, UserConfiguration.password, UserConfiguration.repoOwner, UserConfiguration.repoName, commitMessage);
+                        newPullRequest.CreatePullRequest(branchToMerge, commitMessage, UserConfiguration.UncompletePullRequest);
+                        System.out.println("Code Analysis and Correction done. Invalid Files discovered !");
+                        System.out.println("Pull Request Created but Uncomplete");
+                        System.out.println("Please Review the Invalid Files and run the program again to finalize the Pull Request.");
+                    }
+                }
+                
+                else if(ValidFile.length ==0 && InvalidFile.length >0){
+                        System.out.println("Code Analysis and Correction done. Invalid Files discovered !");
+                        System.out.println("Pull Request Not Created.");
+                        System.out.println("Please Review the Invalid Files and run the program again to create the Pull Request.");
+                    }
+                
+                else {
+                    System.out.println("No Files found in the local repository!!");
+                }
+        }
 }
